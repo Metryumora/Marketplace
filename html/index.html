@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Binco - Main</title>
+    <link rel="stylesheet" href="../assets/css/common.css">
+</head>
+<body>
+<div class="wrapper">
+    <div class="content">
+        <div class="header">
+            <div class="logo"><img id="logo" src="../assets/img/logo.PNG"></div>
+            <div class="heading"><h1>More trash <br> for less cash!</h1></div>
+            <div class="search">
+                <form name="search">
+                    <input type="text" name="query" placeholder="Search..." id="searchInput">
+                    <img id="searchButton" src="../assets/img/search.png" onclick="parentNode.submit()"/>
+                </form>
+            </div>
+            <div class="user">
+                <button class="button">
+                    <a class="hiddenLink" href="/login">Log In</a>
+                </button>
+                <button class="button">
+                    <a class="hiddenLink" href="/register">Register</a>
+                </button>
+            </div>
+        </div>
+        <div class="leftCol">
+            <div class="catalogue">
+                <div class="categoryHeader"><h2>Categories</h2></div>
+                <ul>
+                    {{ range $key, $value := .Categories }}
+                    <li>{{ $value.Name }}</li>
+                    {{ end }}
+                </ul>
+            </div>
+        </div>
+        <div class="center">
+            <div class="preview">
+                <h2></h2>
+                <img src="">
+            </div>
+        </div>
+        <div class="rightCol">
+            <div class="topGoods">
+                <h2>Popular goods</h2>
+                <ul class="noMarkerList">
+                    <li class="listItem"><h3>Fancy-looking stuff</h3>
+                        <p>Short description</p>
+                        <h4>$19.99</h4>
+                    </li>
+                    <li class="listItem"><h3>Weird thing</h3>
+                        <p>Nobody buys this</p>
+                        <h4>$199.99</h4>
+                    </li>
+                </ul>
+            </div>
+            <div class="news">
+                <h2>News</h2>
+                <ul class="noMarkerList">
+                    <li class="listItem"><h3>Breaking news!</h3>
+                        <p>It's not really important, but you gonna read this anyway.</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">This is FOOTER!</div>
+</body>
+</html>

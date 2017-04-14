@@ -1,0 +1,196 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.content {
+    flex: 1 0 auto;
+}
+
+.footer {
+    flex: 0 0 auto;
+    background-color: lawngreen;
+}
+
+body {
+}
+
+.header {
+    float: left;
+    width: 100%;
+    background-color: #e3e3e3;
+    padding: 10px;
+    border: 2px solid #7d7d7d;
+    height: 80px;
+}
+
+.heading {
+    color: #FFB400;
+    font-family: "Cooper Black";
+    font-size: 16px;
+    float: left;
+    margin-left: 0.5%;
+}
+
+.logo {
+    margin-left: 1%;
+    float: left;
+}
+
+#logo {
+    width: 100px;
+    float: left;
+}
+
+.search {
+    float: left;
+    position: relative;
+    margin-top: 15px;
+    margin-left: 25px;
+}
+
+#searchInput {
+    width: 200px;
+    height: 30px;
+    font-family: Arial;
+    font-size: 12px;
+    border-radius: 5px;
+    padding: 2px;
+}
+
+#searchButton {
+    float: right;
+    width: 32px;
+    height: 32px;
+    margin: 2px;
+}
+
+.center {
+    position: fixed;
+    margin-top: 100px;
+    margin-left: 15%;
+    width: 70%;
+
+}
+
+.leftCol {
+    float: left;
+    background-color: #e3e3e3;
+    width: 10%;
+    border: 2px solid #7d7d7d;
+    margin-top: 2px;
+}
+
+.catalogue {
+    margin: 10%;
+}
+
+.categoryHeader {
+    border-radius: 15px;
+    text-align: center;
+    color: #FFB400;
+    font-family: "Arial";
+    font-size: 16px;
+}
+
+.rightCol {
+    margin-top: 2px;
+    width: 15%;
+    background-color: #e3e3e3;
+    float: right;
+    border: 2px solid #7d7d7d;
+    height: 50%;
+}
+
+.noMarkerList {
+    list-style-type: none;
+}
+
+.user {
+    float: right;
+    margin: 1%;
+}
+
+.button {
+    border-radius: 15px;
+    border: 2px solid #7d7d7d;
+    height: 50px;
+    width: 150px;
+    color: #FFB400;
+    background-color: #e3e3e3;
+    font-size: 18px;
+    font-family: Arial;
+}
+
+.topGoods {
+    margin: 5%;
+}
+
+.news {
+    margin: 5%;
+}
+
+.listItem {
+    margin: 5%;
+}
+
+.preview {
+    padding: 5px;
+}
+
+#login {
+    border: 2px solid #7d7d7d;
+    margin: 10px auto auto;
+    width: 50%;
+    padding: 10px;
+}
+
+.input {
+    margin: 5px;
+    border-radius: 5px;
+    font-family: Arial;
+    font-size: large;
+}
+
+#loginForm {
+}
+
+#register {
+    border: 2px solid #7d7d7d;
+    margin: 10px auto auto;
+    width: 250px;
+    padding: 10px;
+}
+
+#registerForm {
+
+}
+
+.minorButton {
+    border-radius: 15px;
+    border: 2px solid #7d7d7d;
+    height: 30px;
+    width: 100px;
+    font-size: 12px;
+    font-family: Arial;
+}
+
+.hiddenLink {
+    text-decoration: none;
+    color: inherit;
+}
+
+.warn{
+    color: red;
+}

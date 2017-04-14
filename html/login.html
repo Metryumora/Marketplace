@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Binco - Log in</title>
+    <link rel="stylesheet" href="../assets/css/common.css">
+</head>
+<body>
+<div class="wrapper">
+    <div class="content">
+        <div class="header">
+            <div class="logo"><a href="/"><img id="logo" src="../assets/img/logo.PNG"></a></div>
+            <div class="heading"><h1>More trash <br> for less cash!</h1></div>
+            <div class="search">
+                <form name="search">
+                    <input type="text" name="query" placeholder="Search..." id="searchInput">
+                    <img id="searchButton" src="../assets/img/search.png" onclick="parentNode.submit()"/>
+                </form>
+            </div>
+            <div class="user">
+                <button class="button">
+                    <a class="hiddenLink" href="login">Log In</a>
+                </button>
+                <button class="button">
+                    <a class="hiddenLink" href="register">Register</a>
+                </button>
+            </div>
+        </div>
+        <div class="center">
+            <div id="login">
+                <h3>
+                    Log In
+                </h3>
+                <h4>
+                    Use this form for logging into your account
+                </h4>
+                <form id="loginForm" method="post">
+                    <p>Email:</p>
+                    <input class="input" name="email" type="email" required>
+                    <p>Password:</p>
+                    <input class="input" name="pass" type="password" required>
+                    <br>
+                    <input class="minorButton" type="submit" value="Log in">
+                    <a href="#">Forgot password?</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">This is FOOTER!</div>
+</body>
+</html>
