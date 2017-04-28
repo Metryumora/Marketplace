@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="../assets/css/common.css">
 </head>
 <body>
+<script src="..//assets/script/script.js"></script>
 <div class="wrapper">
     <div class="content">
         <div class="header">
@@ -31,42 +32,58 @@
                 <div class="categoryHeader"><h2>Categories</h2></div>
                 <ul>
                     {{ range $key, $value := .Categories }}
-                    <li>{{ $value.Name }}</li>
+                    <li><a href={{print "/?category=" $value.Name}}>{{ $value.Name }}</a></li>
                     {{ end }}
                 </ul>
             </div>
         </div>
         <div class="center">
-            <div class="preview">
-                <h2></h2>
-                <img src="">
+            <h1>All products</h1>
+            <div class="productPreview">
+                <table class="productsTable">
+                    {{ range $key, $value := .RequestedProducts }}
+                    <tr class="listItem">
+                        <td class="previewImageSection">
+                            <img class="previewImage" width="300px" src={{$value.Image}}>
+                        </td>
+                        <td class="previewInfoSection">
+                            <h3>{{ $value.Name }}</h3>
+                            <p>{{ $value.Description }}</p>
+                            <h4>Price: {{ $value.Price }}</h4>
+                        </td>
+                    </tr>
+                    {{ end }}
+                </table>
             </div>
         </div>
-        <div class="rightCol">
+        <div class="rightCol" onload="hideText()">
             <div class="topGoods">
                 <h2>Popular goods</h2>
                 <ul class="noMarkerList">
-                    <li class="listItem"><h3>Fancy-looking stuff</h3>
-                        <p>Short description</p>
-                        <h4>$19.99</h4>
+                    {{ range $key, $value := .NewProducts }}
+                    <li class="listItem">
+                        <h3>{{ $value.Name }}</h3>
+                        <p class="description">{{ $value.Description }}</p>
+                        <h4>{{ $value.Price }}</h4>
                     </li>
-                    <li class="listItem"><h3>Weird thing</h3>
-                        <p>Nobody buys this</p>
-                        <h4>$199.99</h4>
-                    </li>
+                    {{ end }}
                 </ul>
             </div>
             <div class="news">
                 <h2>News</h2>
                 <ul class="noMarkerList">
-                    <li class="listItem"><h3>Breaking news!</h3>
-                        <p>It's not really important, but you gonna read this anyway.</p>
+                    {{ range $key, $value := .News }}
+                    <li class="listItem"><h3>{{ $value.Header }}</h3>
+                        <p>{{ $value.Text }}</p>
                     </li>
+                    {{ end }}
                 </ul>
             </div>
         </div>
     </div>
 </div>
-<div class="footer">This is FOOTER!</div>
+<div class="footer">
+    <button onclick="hideText()">De bug?</button>
+</div>
 </body>
 </html>
