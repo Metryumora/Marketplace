@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Binco - Main</title>
     <link rel="stylesheet" href="../assets/css/common.css">
+    <script src="../assets/script/jquery-3.2.1.js"></script>
 </head>
 <body>
 <script src="..//assets/script/script.js"></script>
@@ -47,7 +48,7 @@
                             <img class="previewImage" width="300px" src={{$value.Image}}>
                         </td>
                         <td class="previewInfoSection">
-                            <h3>{{ $value.Name }}</h3>
+                            <h3><a href={{print "/about?product=" $value.ID}}>{{ $value.Name }} </a></h3>
                             <p>{{ $value.Description }}</p>
                             <h4>Price: {{ $value.Price }}</h4>
                         </td>
@@ -56,14 +57,16 @@
                 </table>
             </div>
         </div>
-        <div class="rightCol" onload="hideText()">
+        <div class="rightCol">
             <div class="topGoods">
                 <h2>Popular goods</h2>
                 <ul class="noMarkerList">
                     {{ range $key, $value := .NewProducts }}
                     <li class="listItem">
                         <h3>{{ $value.Name }}</h3>
-                        <p class="description">{{ $value.Description }}</p>
+                        <p class="description">{{ $value.Description }}
+                            <a href={{print "/about?product=" $value.ID}}>More...</a>
+                        </p>
                         <h4>{{ $value.Price }}</h4>
                     </li>
                     {{ end }}
@@ -83,7 +86,6 @@
     </div>
 </div>
 <div class="footer">
-    <button onclick="hideText()">De bug?</button>
 </div>
 </body>
 </html>

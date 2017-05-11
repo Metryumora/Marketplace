@@ -8,6 +8,8 @@ import (
 	_ "image/png"
 	"fmt"
 	"io/ioutil"
+	//"github.com/labstack/echo"
+	//"github.com/labstack/echo/middleware"
 )
 
 type PageData struct {
@@ -52,7 +54,7 @@ type Sale struct {
 
 var db, err = gorm.Open("postgres", "host=localhost port=5432 user=postgres password=root2017 dbname=marketplace sslmode=disable")
 
-func getPageData(category string) *PageData {
+func getMainPageData(category string) *PageData {
 
 	var categories []Category
 	db.Find(&categories)
@@ -73,15 +75,25 @@ func getPageData(category string) *PageData {
 	data := new(PageData)
 	data.Categories = categories
 	data.News = news
+	for i := 0; i < 2; i++ {
+		latest[i].Description = latest[i].Description[:200]
+	}
 	data.NewProducts = latest
 	data.RequestedProducts = products
 	return data
 }
 
+//func createUser(c echo.Context) {
+//	u := new(User)
+//	u.Username = c.Param("name")
+//	u.Password = c.Param("password")
+//	u.Email = c.Param("email")
+//}
+
 func categoryHandler(w http.ResponseWriter, r *http.Request) {
 	cat := r.URL.Query().Get("category")
 
-	renderTemplate(w, "index", getPageData(cat))
+	renderTemplate(w, "index", getMainPageData(cat))
 }
 
 func loginHandler(w http.ResponseWriter, r *http.Request) {
@@ -90,6 +102,9 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 
 func registerHandler(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "register", nil)
+}
+
+func registerUserHandker(w http.ResponseWriter, r *http.Request) {
 }
 
 var templates = template.Must(template.ParseFiles("html/index.html", "html/login.html", "html/register.html"))
@@ -125,7 +140,18 @@ func main() {
 	db.Create(&Category{Name: "Chess & Checkers"})
 	db.Create(&Product{Name: "Mombasa", Price: "$41", Category_id: 1})
 	db.Create(&Product{Name: "Scythe", Price: "$80", Category_id: 1})
-	db.Create(&Product{Name: "Captain Sonar", Price: "$75", Category_id: 1})
+	db.Create(&Product{Name: "Captain Sonar", Price: "$75", Category_id: 2})
+
+	//e := echo.New()
+	//
+	//// Middleware
+	//e.Use(middleware.Logger())
+	//e.Use(middleware.Recover())
+	////CORS
+	//e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+	//	AllowOrigins: []string{"*"},
+	//	AllowMethods: []string{echo.GET, echo.HEAD, echo.PUT, echo.PATCH, echo.POST, echo.DELETE},
+	//}))
 
 	var products []Product
 	db.Find(&products)
@@ -156,21 +182,7 @@ func main() {
 	//
 	//}
 
-	//var products []Product
-	//db.Where("category_id = ?", "1").Find(&products)
-	//fmt.Printf("%s",products)
-	//
-	//
-	//// Read
-	//var user User
-	//db.First(&user, 1)                       // find user with id 1
-	//db.First(&user, "username = ?", "admin") // find user with code l1212
-
-	// Update - update user's price to 2000
-	//db.Model(&user).Update("Price", 2000)
-
-	// Delete - delete user
-	//db.Delete(&user)
+	//e.POST("/register", )
 
 	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
 	http.HandleFunc("/", categoryHandler)
