@@ -104,12 +104,26 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "register", nil)
 }
 
+func aboutHandler(w http.ResponseWriter, r *http.Request) {
+	productID := r.URL.Query().Get("product")
+	var prod Product
+	db.First(&prod, productID)
+	renderAboutTemplate(w, "about", &prod)
+}
+
 func registerUserHandker(w http.ResponseWriter, r *http.Request) {
 }
 
-var templates = template.Must(template.ParseFiles("html/index.html", "html/login.html", "html/register.html"))
+var templates = template.Must(template.ParseFiles("html/index.html", "html/login.html", "html/register.html", "html/about.html"))
 
 func renderTemplate(w http.ResponseWriter, tmpl string, data *PageData) {
+	err := templates.ExecuteTemplate(w, tmpl+".html", data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+func renderAboutTemplate(w http.ResponseWriter, tmpl string, data *Product) {
 	err := templates.ExecuteTemplate(w, tmpl+".html", data)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -156,7 +170,7 @@ func main() {
 	var products []Product
 	db.Find(&products)
 	for _, product := range products {
-		description, err := ioutil.ReadFile("D:/Workspace/Marketplace/assets/products/info/" + fmt.Sprintf("%d", product.ID) + ".txt")
+		description, err := ioutil.ReadFile("C:/Users/Richard/GoglandProjects/Marketplace/assets/products/info/" + fmt.Sprintf("%d", product.ID) + ".txt")
 		check(err)
 		db.Model(&product).Update("Description", description)
 		db.Model(&product).Update("Image", "/assets/products/images/"+fmt.Sprintf("%d", product.ID)+".png")
@@ -188,5 +202,6 @@ func main() {
 	http.HandleFunc("/", categoryHandler)
 	http.HandleFunc("/login", loginHandler)
 	http.HandleFunc("/register", registerHandler)
+	http.HandleFunc("/about", aboutHandler)
 	http.ListenAndServe(":8080", nil)
 }
