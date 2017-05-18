@@ -2,9 +2,77 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>About product</title>
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <script src="../assets/script/jquery-3.2.1.js"></script>
 </head>
 <body>
-{{ .Description}}
+<script src="..//assets/script/script.js"></script>
+<div class="wrapper">
+    <div class="content">
+        <div class="header">
+            <div class="logo"><img id="logo" src="../assets/img/logo.png"></div>
+            <div class="heading"><h1>Play board games <br> & enjoy it!</h1></div>
+            <div class="search">
+                <form name="search">
+                    <input type="text" name="query" placeholder="Search..." id="searchInput">
+                    <img id="searchButton" src="../assets/img/search.png" onclick="parentNode.submit()"/>
+                </form>
+            </div>
+            <div class="user">
+                <button class="button">
+                    <a class="hiddenLink" href="/login">Log In</a>
+                </button>
+                <button class="button">
+                    <a class="hiddenLink" href="/register">Register</a>
+                </button>
+            </div>
+        </div>
+        <div class="leftCol">
+            <div class="catalogue">
+                <div class="categoryHeader"><h2>Categories</h2></div>
+
+            </div>
+        </div>
+        <div class="center">
+            <h1>Product</h1>
+            <div class="product">
+                <img id="productImage" src="../assets/products/images/2.png">
+                <ul class="noMarkerList">
+                    <li class="listItem">
+                        Product Name
+                    </li>
+                    <li class="listItem">
+                        Price
+                    </li>
+                    <li class="listItem">
+                        Players
+                    </li>
+                    <li class="listItem">
+                        Ages
+                    </li>
+                </ul>
+                <div class="description">
+                    <h3>Description:</h3>
+                    <p>
+                            At the risk of calling it early, Scythe is the best game of 2016. In this gorgeously illustrated
+                        steampunk re-imagining of 1920s Eastern Europe, five players complete for regional prestige, resources,
+                        and territorial control of a hexagonal game board. Although battling your friends with coal-powered
+                        mechs is a significant part of the game, Scythe is by no means a combat-centric slog. The game actively
+                        penalizes direct warfare, which might sound frustrating but makes the game all the more strategic and
+                        balanced. You'll find yourself immersed in Scythe's strategy and aesthetics as you plan each turn's
+                        single action. For example: First you might complete a quest to steal food and money from local farmers,
+                        next you'll build a mine to connect territories across the board, and lastly you'll sweep into a nearby
+                        Soviet territory to do battle and steal all their iron.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="footer">
+    <p>2017</p>
+</div>
 </body>
 </html>

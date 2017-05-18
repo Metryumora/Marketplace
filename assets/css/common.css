@@ -1,20 +1,26 @@
 * {
-    margin: 1px;
+    margin: 0;
     padding: 0;
+
+}
+
+body {
+    background: linear-gradient(-180deg, #161c22, #050408);
 }
 
 .header {
     float: left;
-    width: 98%;
-    background-color: #e3e3e3;
+    width: 99%;
+    background: linear-gradient(-90deg, #eb82aa, #fff43f);
+    /*background-color: #D9C090;*/
     padding: 10px;
-    border: 2px solid #7d7d7d;
+    border: 2px groove #f62000;
     height: 80px;
 }
 
 .heading {
-    color: #FFB400;
-    font-family: "Cooper Black";
+    color: #ff2752;
+    font-family: "Book Antiqua";
     font-size: 16px;
     float: left;
     margin-left: 0.5%;
@@ -23,11 +29,15 @@
 .logo {
     margin-left: 1%;
     float: left;
+    border: 2px;
 }
 
 #logo {
-    width: 100px;
+    width: 140px;
     float: left;
+    border-radius: 5px;
+    border-top: groove;
+    border-left: groove;
 }
 
 .search {
@@ -50,38 +60,73 @@
     float: right;
     width: 32px;
     height: 32px;
-    margin: 2px;
+    margin-left: 7px;
+    margin-top: 3px;
 }
 
 .center {
     display: inline-block;
     width: 65%;
     border: 2px solid #7d7d7d;
-    background-color: #e3e3e3;
+    background-color: #fafff1;
+    margin-left: 3px;
+}
+
+.center h1{
+    display: inline-block;
+    background-color: #00ffa5;
+    width: 100%;
+    align-content: center;
+    font-family: Centaur;
+    color: #161040;
 }
 
 .leftCol {
     float: left;
-    background-color: #e3e3e3;
+    background-color: #efffbd;
     width: 15%;
-    border: 2px solid #7d7d7d;
+    border: 1px solid #7d7d7d;
 }
 
 .catalogue {
     margin: 10%;
 }
 
+.catalogue li{
+    display: inline-block;
+    background-color: #2fff79;
+    font-weight: 100;
+    font-size: 16px;
+    font-family: "Berlin Sans FB";
+    margin-bottom: 4px;
+    padding-top: 4px;
+    width: 98%;
+}
+
+.catalogue li:hover{
+    background-color: #00ffa5;
+}
+
+.catalogue a{
+    text-decoration: none;
+}
+
+.catalogue a:hover{
+    color: #331766;
+}
+
 .categoryHeader {
     border-radius: 15px;
     text-align: center;
-    color: #FFB400;
-    font-family: "Arial";
+    color: #ff2752;
+    font-family: "Book Antiqua";
     font-size: 16px;
+    padding-bottom: 8px;
 }
 
 .rightCol {
     width: 18.6%;
-    background-color: #e3e3e3;
+    background-color: #e2e9ff;
     float: right;
     border: 2px solid #7d7d7d;
     height: 50%;
@@ -99,13 +144,20 @@
 
 .button {
     border-radius: 15px;
-    border: 2px solid #7d7d7d;
+    border: 2px solid #856c62;
     height: 50px;
     width: 150px;
-    color: #FFB400;
-    background-color: #e3e3e3;
+    color: #7d0500;
+    background: linear-gradient(-180deg, #fff9c2, #ffc050);
+
     font-size: 18px;
-    font-family: Arial;
+    font-family: Euphemia;
+}
+
+.button:hover {
+    border: 2px ridge #7d0500;
+    background: linear-gradient(-180deg, #e2e9ff, #fcff58);
+    color: #fd9a00;
 }
 
 .topGoods {
@@ -193,4 +245,21 @@
 
 .hidden{
     display: none;
+}
+
+.product ul{
+    float: right;
+}
+
+
+.footer{
+    display: inline-block;
+    width: 100%;
+    height: 30px;
+    background: linear-gradient(-180deg, #404a46, #23333e);
+    color: #e2e9ff;
+    font-size: 15px;
+    padding-left: 50%;
+    margin-top: 10px;
+
 }
