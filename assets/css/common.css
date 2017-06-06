@@ -68,11 +68,12 @@ body {
     display: inline-block;
     width: 65%;
     border: 2px solid #7d7d7d;
-    background-color: #fafff1;
+    background-color: #efffbd;
     margin-left: 3px;
+    overflow: hidden
 }
 
-.center h1{
+.center h1 {
     display: inline-block;
     background-color: #00ffa5;
     width: 100%;
@@ -92,7 +93,7 @@ body {
     margin: 10%;
 }
 
-.catalogue li{
+.catalogue li {
     display: inline-block;
     background-color: #2fff79;
     font-weight: 100;
@@ -103,15 +104,15 @@ body {
     width: 98%;
 }
 
-.catalogue li:hover{
+.catalogue li:hover {
     background-color: #00ffa5;
 }
 
-.catalogue a{
+.catalogue a {
     text-decoration: none;
 }
 
-.catalogue a:hover{
+.catalogue a:hover {
     color: #331766;
 }
 
@@ -243,16 +244,15 @@ body {
     border: none;
 }
 
-.hidden{
+.hidden {
     display: none;
 }
 
-.product ul{
+.product ul {
     float: right;
 }
 
-
-.footer{
+.footer {
     display: inline-block;
     width: 100%;
     height: 30px;

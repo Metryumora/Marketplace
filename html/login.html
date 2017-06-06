@@ -34,13 +34,14 @@
                 <h4>
                     Use this form for logging into your account
                 </h4>
-                <form id="loginForm" method="post">
-                    <p>Email:</p>
-                    <input class="input" name="email" type="email" required>
+                <form id="loginForm" method="post" action="/login">
+                    <p>Login:</p>
+                    <input class="input" name="username" type="text" required>
                     <p>Password:</p>
                     <input class="input" name="pass" type="password" required>
                     <br>
                     <input class="minorButton" type="submit" value="Log in">
+                    <p>{{ . }}</p>
                     <a href="#">Forgot password?</a>
                 </form>
             </div>

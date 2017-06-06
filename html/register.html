@@ -33,13 +33,13 @@
                 <h4>Filling all the fields is required.</h4>
             <form id="registerForm" method="post" action="/register">
                 <p>Username:</p>
-                <input onchange="checkUsername()" class="input" id="username" type="text" required>
+                <input onchange="checkUsername()" class="input" id="username" type="text" required name="username">
                 <p class="warn" id="usernameWarn"></p>
                 <p>Email:</p>
-                <input class="input" id="emailInput" type="email" required>
+                <input class="input" id="emailInput" type="email" required name="email">
                 <p class="warn" id="emailWarn"></p>
                 <p>Password:</p>
-                <input onchange="checkPassword()" class="input" id="pwd1" type="password" required>
+                <input onchange="checkPassword()" class="input" id="pwd1" type="password" required name="password">
                 <p class="warn" id="passWarn"></p>
                 <p>Confirm password:</p>
                 <input onchange="confirmPassword()" class="input" id="pwd2" type="password" required>
