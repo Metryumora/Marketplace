@@ -34,41 +34,36 @@
 
             </div>
         </div>
+
         <div class="center" >
             <h1>Product</h1>
             <div class="product">
                 <img id="productImage" src="../assets/products/images/2.png">
                 <ul class="noMarkerList" id="propertiesList">
+        <div class="center">
+            <h1>{{.Name}}</h1>
+            <h2></h2>
+            <div class="product">
+                <img id="productImage" src="{{.Image}}">
+                <ul class="noMarkerList">
                     <li class="listItem">
-                        Product Name
+                        Price: {{.Price}}
                     </li>
                     <li class="listItem">
-                        Price
+                        Players: {{.Players}}
                     </li>
                     <li class="listItem">
-                        Players
-                    </li>
-                    <li class="listItem">
-                        Ages
+                        Ages: {{.Ages}}
                     </li>
                 </ul>
                 <div class="description">
                     <h3>Description:</h3>
                     <p>
-                            At the risk of calling it early, Scythe is the best game of 2016. In this gorgeously illustrated
-                        steampunk re-imagining of 1920s Eastern Europe, five players complete for regional prestige, resources,
-                        and territorial control of a hexagonal game board. Although battling your friends with coal-powered
-                        mechs is a significant part of the game, Scythe is by no means a combat-centric slog. The game actively
-                        penalizes direct warfare, which might sound frustrating but makes the game all the more strategic and
-                        balanced. You'll find yourself immersed in Scythe's strategy and aesthetics as you plan each turn's
-                        single action. For example: First you might complete a quest to steal food and money from local farmers,
-                        next you'll build a mine to connect territories across the board, and lastly you'll sweep into a nearby
-                        Soviet territory to do battle and steal all their iron.
+                            {{.Description}}
                     </p>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 <div class="footer">
