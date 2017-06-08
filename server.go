@@ -7,27 +7,22 @@ import (
 	_ "image/png"
 	. "Marketplace/persistence"
 	"golang.org/x/crypto/bcrypt"
+	"github.com/labstack/echo"
+	"io"
 )
 
 var db = ConnectToDB()
 
-var templates = template.Must(template.ParseFiles("html/index.html",
-	"html/login.html",
-	"html/register.html",
-	"html/about.html"))
-
-func renderTemplateWithPageData(w http.ResponseWriter, tmpl string, data *PageData) {
-	err := templates.ExecuteTemplate(w, tmpl+".html", data)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+type Template struct {
+	templates *template.Template
 }
 
-func renderTemplateWithMessage(w http.ResponseWriter, tmpl string, message string) {
-	err := templates.ExecuteTemplate(w, tmpl+".html", message)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+var t = &Template{
+	templates: template.Must(template.ParseGlob("html/*.html")),
+}
+
+func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
+	return t.templates.ExecuteTemplate(w, name, data)
 }
 
 func getMainPageData(category string) *PageData {
@@ -62,78 +57,67 @@ func getMainPageData(category string) *PageData {
 	return data
 }
 
-func categoryHandler(w http.ResponseWriter, r *http.Request) {
-	cat := r.URL.Query().Get("category")
-
-	renderTemplateWithPageData(w, "index", getMainPageData(cat))
+func categoryHandler(c echo.Context) error {
+	cat := c.QueryParam("category")
+	return c.Render(http.StatusOK, "index.html", getMainPageData(cat))
 }
 
-func loginHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method == http.MethodPost {
-		r.ParseForm()
-		params := r.Form
-		username := params.Get("username")
-		password := []byte(params.Get("pass"))
+func authUser(c echo.Context) error {
+	username := c.FormValue("username")
+	password := []byte(c.FormValue("pass"))
 
-		var checkedUser User
-		db.Where(&User{Username: username}).Find(&checkedUser)
-		if &checkedUser == nil {
-			renderTemplateWithMessage(w, "login", "Username not found!")
+	var checkedUser User
+	db.Where(&User{Username: username}).Find(&checkedUser)
+	if &checkedUser == nil {
+		return c.Render(http.StatusOK, "login.html", "Username not found!")
+	} else {
+		err := bcrypt.CompareHashAndPassword([]byte(checkedUser.Password), password)
+		if err != nil {
+			return c.Render(http.StatusOK, "login.html", "Bad credentials!")
 		} else {
-			err := bcrypt.CompareHashAndPassword([]byte(checkedUser.Password), password)
-			if err != nil {
-				renderTemplateWithMessage(w, "login", "Bad credentials!")
-			} else {
-				renderTemplateWithPageData(w, "index", getMainPageData(""))
-			}
+			return c.Render(http.StatusOK, "index.html", getMainPageData(""))
 		}
-
-	}
-	if r.Method == http.MethodGet {
-		renderTemplateWithPageData(w, "login", nil)
 	}
 }
 
-func registerHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method == http.MethodPost {
-		r.ParseForm()
-		params := r.Form
-		var user = new(User)
-		user.Username = params.Get("username")
-		hash, err := bcrypt.GenerateFromPassword([]byte(params.Get("password")), bcrypt.DefaultCost)
-		Check(err)
-		user.Password = string(hash)
-		user.Email = params.Get("email")
-		db.Debug().Save(user)
-		renderTemplateWithMessage(w, "login", "Registration successful!")
-	}
-	if r.Method == http.MethodGet {
-		renderTemplateWithPageData(w, "register", nil)
-	}
+func loginHandler(c echo.Context) error {
+	return c.Render(http.StatusOK, "login.html", nil)
 }
 
-func aboutHandler(w http.ResponseWriter, r *http.Request) {
-	productID := r.URL.Query().Get("product")
+func registerUser(c echo.Context) error {
+	var user = new(User)
+	user.Username = c.FormValue("username")
+	hash, err := bcrypt.GenerateFromPassword([]byte(c.FormValue("password")), bcrypt.DefaultCost)
+	Check(err)
+	user.Password = string(hash)
+	user.Email = c.FormValue("email")
+	db.Debug().Save(user)
+	c.Render(http.StatusOK, "login.html", "Registration successful!")
+	return err
+}
+func registerHandler(c echo.Context) error {
+	return c.Render(http.StatusOK, "register.html", nil)
+}
+
+func aboutHandler(c echo.Context) error {
+	productID := c.QueryParam("product")
 	var prod BoardGame
 	db.First(&prod, productID)
-	renderAboutTemplate(w, "about", &prod)
-}
-
-func renderAboutTemplate(w http.ResponseWriter, tmpl string, data *BoardGame) {
-	err := templates.ExecuteTemplate(w, tmpl+".html", data)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+	return c.Render(http.StatusOK, "about.html", &prod)
 }
 
 func main() {
 	defer db.Close()
 	//TestFillDB(db)
+	e := echo.New()
+	e.Renderer = t
 
-	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
-	http.HandleFunc("/", categoryHandler)
-	http.HandleFunc("/login", loginHandler)
-	http.HandleFunc("/register", registerHandler)
-	http.HandleFunc("/about", aboutHandler)
-	http.ListenAndServe(":8090", nil)
+	e.Static("/assets", "assets")
+	e.GET("/", categoryHandler)
+	e.GET("/login", loginHandler)
+	e.GET("/register", registerHandler)
+	e.GET("/about", aboutHandler)
+	e.POST("/register", registerUser)
+	e.POST("/login", authUser)
+	e.Start(":8090")
 }
