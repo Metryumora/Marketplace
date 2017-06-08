@@ -226,6 +226,14 @@ body {
 
 }
 
+#register h3 {
+    padding-left: 30%;
+}
+
+#register .button {
+  margin-left: 34%;
+}
+
 #registerForm {
 
 }
