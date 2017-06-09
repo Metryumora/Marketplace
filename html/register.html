@@ -11,7 +11,7 @@
     <div class="content">
         <div class="header">
             <div class="logo"><a href="/"><img id="logo" src="../assets/img/logo.PNG"></a></div>
-            <div class="heading"><h1>More trash <br> for less cash!</h1></div>
+            <div class="heading"><h1>Play board games</h1></div>
             <div class="search">
                 <form name="search">
                     <input type="text" name="query" placeholder="Search..." id="searchInput">
@@ -27,30 +27,30 @@
                 </button>
             </div>
         </div>
-        <div class="center">
+        <div class="center" id="center">
             <div id="register">
-                <h3>This is the registration form.</h3>
+                <h3>Registration</h3>
                 <h4>Filling all the fields is required.</h4>
-            <form id="registerForm" method="post" action="/register">
-                <p>Username:</p>
-                <input onchange="checkUsername()" class="input" id="username" type="text" required name="username">
-                <p class="warn" id="usernameWarn"></p>
-                <p>Email:</p>
-                <input class="input" id="emailInput" type="email" required name="email">
-                <p class="warn" id="emailWarn"></p>
-                <p>Password:</p>
-                <input onchange="checkPassword()" class="input" id="pwd1" type="password" required name="password">
-                <p class="warn" id="passWarn"></p>
-                <p>Confirm password:</p>
-                <input onchange="confirmPassword()" class="input" id="pwd2" type="password" required>
-                <p class="warn" id="confWarn"></p>
-                <br>
-                <input class="minorButton" type="submit" value="Register">
-            </form>
+                <form id="registerForm" method="post" action="/register">
+                    <p>Username:</p>
+                    <input onchange="checkUsername()" class="input" id="username" type="text" required>
+                    <p class="warn" id="usernameWarn"></p>
+                    <p>Email:</p>
+                    <input class="input" id="emailInput" type="email" required>
+                    <p class="warn" id="emailWarn"></p>
+                    <p>Password:</p>
+                    <input onchange="checkPassword()" class="input" id="pwd1" type="password" required>
+                    <p class="warn" id="passWarn"></p>
+                    <p>Confirm password:</p>
+                    <input onchange="confirmPassword()" class="input" id="pwd2" type="password" required>
+                    <p class="warn" id="confWarn"></p>
+                    <br>
+                    <input class="button" type="submit" value="Register">
+                </form>
             </div>
         </div>
     </div>
 </div>
-<div class="footer">This is FOOTER!</div>
+<div class="footer">© 2017</div>
 </body>
 </html>

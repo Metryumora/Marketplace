@@ -20,6 +20,11 @@ type PageData struct {
 	RequestedBoardGames []BoardGame
 }
 
+type AboutProductData struct {
+	Categories []Category
+	Product    BoardGame
+}
+
 type User struct {
 	gorm.Model
 	Username string

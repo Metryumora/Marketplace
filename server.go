@@ -101,9 +101,10 @@ func registerHandler(c echo.Context) error {
 
 func aboutHandler(c echo.Context) error {
 	productID := c.QueryParam("product")
-	var prod BoardGame
-	db.First(&prod, productID)
-	return c.Render(http.StatusOK, "about.html", &prod)
+	var data AboutProductData
+	db.First(&data.Product, productID)
+	db.Find(&data.Categories)
+	return c.Render(http.StatusOK, "about.html", &data)
 }
 
 func main() {
