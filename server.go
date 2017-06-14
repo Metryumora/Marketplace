@@ -9,6 +9,9 @@ import (
 	"golang.org/x/crypto/bcrypt"
 	"github.com/labstack/echo"
 	"io"
+	"time"
+	"github.com/labstack/echo/middleware"
+	"github.com/dgrijalva/jwt-go"
 )
 
 var db = ConnectToDB()
@@ -25,7 +28,7 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
 	return t.templates.ExecuteTemplate(w, name, data)
 }
 
-func getMainPageData(category string) *PageData {
+func getMainPageData(category string, token string) *PageData {
 	var categories []Category
 	db.Find(&categories)
 
@@ -54,12 +57,13 @@ func getMainPageData(category string) *PageData {
 	}
 	data.NewBoardGames = latest
 	data.RequestedBoardGames = products
+	data.Token = token
 	return data
 }
 
 func categoryHandler(c echo.Context) error {
 	cat := c.QueryParam("category")
-	return c.Render(http.StatusOK, "index.html", getMainPageData(cat))
+	return c.Render(http.StatusOK, "index.html", getMainPageData(cat, ""))
 }
 
 func authUser(c echo.Context) error {
@@ -75,7 +79,20 @@ func authUser(c echo.Context) error {
 		if err != nil {
 			return c.Render(http.StatusOK, "login.html", "Bad credentials!")
 		} else {
-			return c.Render(http.StatusOK, "index.html", getMainPageData(""))
+			// Create token
+			token := jwt.New(jwt.SigningMethodHS256)
+			// Set claims
+			claims := token.Claims.(jwt.MapClaims)
+			claims["name"] = checkedUser.Username
+			claims["admin"] = true
+			claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
+
+			// Generate encoded token and send it as response.
+			t, err := token.SignedString([]byte("secret"))
+			Check(err)
+			return c.JSON(http.StatusOK, echo.Map{
+				"token": t,
+			})
 		}
 	}
 }
@@ -107,12 +124,22 @@ func aboutHandler(c echo.Context) error {
 	return c.Render(http.StatusOK, "about.html", &data)
 }
 
+func restricted(c echo.Context) error {
+	user := c.Get("user").(*jwt.Token)
+	claims := user.Claims.(jwt.MapClaims)
+	name := claims["name"].(string)
+	return c.String(http.StatusOK, "Welcome "+name+"!")
+}
+
 func main() {
 	defer db.Close()
 	//TestFillDB(db)
 	e := echo.New()
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
 	e.Renderer = t
 
+	// Unauthenticated routes
 	e.Static("/assets", "assets")
 	e.GET("/", categoryHandler)
 	e.GET("/login", loginHandler)
@@ -120,5 +147,10 @@ func main() {
 	e.GET("/about", aboutHandler)
 	e.POST("/register", registerUser)
 	e.POST("/login", authUser)
+
+	r := e.Group("/restricted")
+	r.Use(middleware.JWT([]byte("secret")))
+	r.GET("", restricted)
+
 	e.Start(":8090")
 }

@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"fmt"
 	"golang.org/x/crypto/bcrypt"
+	"encoding/json"
 )
 
 func Check(e error) {
@@ -18,6 +19,7 @@ type PageData struct {
 	NewBoardGames       []BoardGame
 	News                []News
 	RequestedBoardGames []BoardGame
+	Token               json.Token
 }
 
 type AboutProductData struct {
